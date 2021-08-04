@@ -222,7 +222,7 @@
 <p>Spring Web MVC是一种基于Java的实现了Web MVC设计模式的请求驱动类型的轻量级Web框架，即使用了MVC架构模式的思想，将web层进行职责解耦，基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发。</p>
 </blockquote>
 <p>用户在网页上单击一个 URL 路径，这对 Web 服务器来说，相当于用户发送了一个请求。而获取请求后如何解析用户的输入，并执行相关处理逻辑，最终跳转至正确的页面显示反馈结果，这些工作往往是<strong>控制层（Controller）</strong>来完成的。在请求的过程中，用户的信息被封装在User实体类中，该实体类在Web项目中属于<strong>数据模型层（Model）</strong>。在请求显示阶段，跳转的结果网页就属于<strong>视图层（View）</strong>。</p>
-<p><img src="/2021/08/04/SpringMVC%E7%AC%94%E8%AE%B0/Spring%20MVC.png" alt="Spring MVC"></p>
+<p><img src="/posts/Spring%20MVC.png" alt="Spring MVC"></p>
 <p>MVC框架：</p>
 <ul>
 <li>模型（Model）封装了应用程序的数据和一般他们会组成的POJO。</li>
@@ -248,7 +248,7 @@
 <h4 id="2）创建-servletname-servlet-xml"><a href="#2）创建-servletname-servlet-xml" class="headerlink" title="2）创建[servletname]-servlet.xml"></a>2）创建[servletname]-servlet.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;</span></span></span><br><span class="line"><span class="string"><span class="tag">        http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="string"><span class="tag">        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- LoginController控制器类，映射到&quot;/login&quot; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;/login&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">class</span>=<span class="string">&quot;net.biancheng.controller.LoginController&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- LoginController控制器类，映射到&quot;/register&quot; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;/register&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">class</span>=<span class="string">&quot;net.biancheng.controller.RegisterController&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="3-总体步骤"><a href="#3-总体步骤" class="headerlink" title="3)总体步骤"></a>3)总体步骤</h4><p>总的来说DispatcherServlet的配置过程如下</p>
-<p><img src="/2021/08/04/SpringMVC%E7%AC%94%E8%AE%B0/%E5%AE%9A%E4%B9%89DispatcherServlet.png" alt="定义DispatcherServlet"></p>
+<p><img src="/posts/%E5%AE%9A%E4%B9%89DispatcherServlet.png" alt="定义DispatcherServlet"></p>
 <h3 id="2-3-创建Controller"><a href="#2-3-创建Controller" class="headerlink" title="2.3 创建Controller"></a>2.3 创建Controller</h3><p>Controller类用于处理来自<code>“/login”</code>和<code>“/register”</code>的url请求，实现Controller接口。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">&quot;/WEB-INF/jsp/register.jsp&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -280,7 +280,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://example.com/2021/08/04/SpringMVC%E7%AC%94%E8%AE%B0/">http://example.com/2021/08/04/SpringMVC%E7%AC%94%E8%AE%B0/</a></span>
+                        <span><a href="https://9uts.github.io/posts/67178814.html">https://9uts.github.io/posts/67178814.html</a></span>
                     </p>
                 
                 
@@ -319,10 +319,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/08/04/Spring-Boot%E7%AC%94%E8%AE%B0/">Spring Boot笔记</a>
+                <a class="prev" rel="prev" href="/posts/75cf7129.html">Spring Boot笔记</a>
             
             
-            <a class="next" rel="next" href="/2021/08/04/Spring-Boot-%E5%BC%80%E5%8F%91-RESTful%E9%A3%8E%E6%A0%BCweb%E9%A1%B9%E7%9B%AE/">Spring Boot开发RESTful风格web项目</a>
+            <a class="next" rel="next" href="/posts/d90787d5.html">Spring Boot开发RESTful风格web项目</a>
             
         </section>
 
