@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="9uts">
+
+
+
+
+
+<title>Spring Boot笔记 | 9uts&#39; Dog House</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">9uts&#39; Dog House</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">9uts&#39; Dog House</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Spring Boot笔记</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">9uts</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 4, 2021&nbsp;&nbsp;16:07:01</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Develop/">Develop</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="1-SpringBoot项目结构"><a href="#1-SpringBoot项目结构" class="headerlink" title="1. SpringBoot项目结构"></a>1. SpringBoot项目结构</h1><p>SpringBoot的基础文件夹有三个：</p>
+<ul>
+<li>/src/main/java<br>程序开发以及主程序入口</li>
+<li>/src/main/resources<br>配置文件</li>
+<li>/src/main/test<br>测试程序</li>
+</ul>
+<p>SpringBoot建议的目录结构如下：</p>
+<p><img src="/2021/08/04/Spring-Boot%E7%AC%94%E8%AE%B0/SpringBoot%E5%BB%BA%E8%AE%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt="SpringBoot建议目录结构"></p>
+<h1 id="2-SpringBoot常用注解"><a href="#2-SpringBoot常用注解" class="headerlink" title="2. SpringBoot常用注解"></a>2. SpringBoot常用注解</h1><h2 id="2-1-注解列表"><a href="#2-1-注解列表" class="headerlink" title="2.1 注解列表"></a>2.1 注解列表</h2><ol>
+<li><code>@SpringBootApplication</code><br>包含了@ComponentScan、@Configuration和@EnableAutoConfiguration注解。其中@ComponentScan让spring Boot扫描到Configuration类并把它加入到程序上下文。</li>
+<li><code>@Configuration</code><br>等同于Spring的xml配置文件。</li>
+<li><code>@EnableAutoConfiguration</code><br>自动配置。</li>
+<li><code>@ComponentScan</code><br>组建扫描，自动发现和装配Bean。</li>
+<li><code>@Component</code><br>可配合CommandLineRunner使用，在程序启动后执行一些基础任务。</li>
+<li><code>@RestController</code><br>是@Controller和@ResponseBody的合集，表示这是个控制器Bean，并且是将函数的返回值直接填入HTTP响应体中,是REST风格的控制器，不需要另外配置<a target="_blank" rel="noopener" href="https://blog.csdn.net/sdyy321/article/details/40298081">Jackson</a>。</li>
+<li><code>@AutoWired</code><br>自动装配。</li>
+<li><code>@PatchVariable</code><br>获取参数。</li>
+<li><code>@JsonBackReference</code><br>解决嵌套外链问题。</li>
+<li><code>@RepositoryRestResourcepublic</code><br>配合spring-boot-starter-data-rest使用。</li>
+</ol>
+<h2 id="2-2-注解详解"><a href="#2-2-注解详解" class="headerlink" title="2.2 注解详解"></a>2.2 注解详解</h2><h3 id="1-SpringBootApplication"><a href="#1-SpringBootApplication" class="headerlink" title="1. @SpringBootApplication"></a>1. <code>@SpringBootApplication</code></h3><p>声明让spring boot自动给程序进行必要的配置，这个配置等同于：@Configuration ，@EnableAutoConfiguration 和 @ComponentScan三个配置。</p>
+<h3 id="2-ResponseBody"><a href="#2-ResponseBody" class="headerlink" title="2. @ResponseBody"></a>2. <code>@ResponseBody</code></h3><p>表示该方法的返回结果直接写入HTTP response body中，一般在异步获取数据时使用，用于构建RESTful的api。在使用@RequestMapping后，返回值通常解析为跳转路径，加上@responsebody后返回结果不会被解析为跳转路径，而是直接写入HTTP response body中。比如异步获取json数据，加上@responsebody后，会直接返回json数据。该注解一般会配合@RequestMapping一起使用。</p>
+<h3 id="3-Controller"><a href="#3-Controller" class="headerlink" title="3. @Controller"></a>3. <code>@Controller</code></h3><p>用于定义控制器类，在spring项目中由控制器负责将用户发来的URL请求转发到对应的服务接口（service层），一般这个注解在类中，通常方法需要配合注解@RequestMapping。</p>
+<h3 id="4-RestController"><a href="#4-RestController" class="headerlink" title="4. @RestController"></a>4. <code>@RestController</code></h3><p>用于标注控制层组件(如struts中的action)，@ResponseBody和@Controller的合集。</p>
+<h3 id="5-RequestMapping"><a href="#5-RequestMapping" class="headerlink" title="5. @RequestMapping"></a>5. <code>@RequestMapping</code></h3><p>提供路由信息，负责URL到Controller中的具体函数的映射。</p>
+<h3 id="6-EnableAutoConfiguration"><a href="#6-EnableAutoConfiguration" class="headerlink" title="6. @EnableAutoConfiguration"></a>6. <code>@EnableAutoConfiguration</code></h3><p>Spring Boot自动配置（auto-configuration）：尝试根据你添加的jar依赖自动配置你的Spring应用。例如，如果你的classpath下存在HSQLDB，并且你没有手动配置任何数据库连接beans，那么我们将自动配置一个内存型（in-memory）数据库”。</p>
+<p>你可以将@EnableAutoConfiguration或者@SpringBootApplication注解添加到一个@Configuration类上来选择自动配置。如果发现应用了你不想要的特定自动配置类，你可以使用@EnableAutoConfiguration注解的排除属性来禁用它们。</p>
+<h3 id="7-ComponentScan"><a href="#7-ComponentScan" class="headerlink" title="7. @ComponentScan"></a>7. <code>@ComponentScan</code></h3><p>表示将该类自动发现扫描组件。个人理解相当于，如果扫描到有@Component、@Controller、@Service等这些注解的类，并注册为Bean，可以自动收集所有的Spring组件，包括@Configuration类。我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。可以自动收集所有的Spring组件，包括@Configuration类。</p>
+<p>我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。如果没有配置的话，Spring Boot会扫描启动类所在包下以及子包下的使用了@Service，@Repository等注解的类。</p>
+<h3 id="8-Configuration"><a href="#8-Configuration" class="headerlink" title="8. @Configuration"></a>8. <code>@Configuration</code></h3><p>相当于传统的xml配置文件，如果有些第三方库需要用到xml文件，建议仍然通过@Configuration类作为项目的配置主类——可以使用@ImportResource注解加载xml配置文件。</p>
+<h3 id="9-Import"><a href="#9-Import" class="headerlink" title="9. @Import"></a>9. <code>@Import</code></h3><p>导入其他配置类。</p>
+<h3 id="10-ImportResource"><a href="#10-ImportResource" class="headerlink" title="10. @ImportResource"></a>10. <code>@ImportResource</code></h3><p>用来加载xml配置文件。</p>
+<h3 id="11-AutoWired"><a href="#11-AutoWired" class="headerlink" title="11. @AutoWired"></a>11. <code>@AutoWired</code></h3><p>自动导入依赖的bean。byType方式。把配置好的Bean拿来用，完成属性、方法的组装，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。当加上<code>(required=false)</code>时，就算找不到Bean也不报错。</p>
+<h3 id="12-Service"><a href="#12-Service" class="headerlink" title="12. @Service"></a>12. <code>@Service</code></h3><p>用于修饰Service层的组件。</p>
+<h3 id="13-Repository"><a href="#13-Repository" class="headerlink" title="13. @Repository"></a>13. <code>@Repository</code></h3><p>使用@Repository注解可以确保DAO或者repositories提供异常转译，这个注解修饰的DAO或者repositories类会被ComponetScan发现并配置，同时也不需要为它们提供XML配置项。</p>
+<h3 id="14-Bean"><a href="#14-Bean" class="headerlink" title="14. @Bean"></a>14. <code>@Bean</code></h3><p>用@Bean标注方法等价于XML中配置的bean，放在方法的上面，而不是类，意思是产生一个Bean，并交给spring管理。</p>
+<h3 id="15-Value"><a href="#15-Value" class="headerlink" title="15. @Value"></a>15. <code>@Value</code></h3><p>注入Spring boot中的application.properties配置的属性的值。</p>
+<h3 id="16-Inject"><a href="#16-Inject" class="headerlink" title="16. @Inject"></a>16. <code>@Inject</code></h3><p>等价于默认的@Autowired，只是没有required属性。</p>
+<h3 id="17-Component"><a href="#17-Component" class="headerlink" title="17. @Component"></a>17. <code>@Component</code></h3><p>泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。</p>
+<p><code>@Component</code>可以分为以下几种注解：</p>
+<p><img src="/2021/08/04/Spring-Boot%E7%AC%94%E8%AE%B0/%E7%BB%84%E4%BB%B6%E6%B3%A8%E8%A7%A3.png" alt="组件注解"></p>
+<h3 id="18-Qualifier"><a href="#18-Qualifier" class="headerlink" title="18. @Qualifier"></a>18. <code>@Qualifier</code></h3><p>当有多个同一类型的Bean时，可以用@Qualifier(“name”)来指定。与@Autowired配合使用。@Qualifier限定描述符除了能根据名字进行注入，但能进行更细粒度的控制如何选择候选者。</p>
+<h3 id="19-Resource"><a href="#19-Resource" class="headerlink" title="19. @Resource"></a>19. <code>@Resource</code></h3><p>@Resource(name=”name”,type=”type”)：没有括号内内容的话，默认byName。与@Autowired干类似的事。</p>
+<h2 id="2-3-JPA注解"><a href="#2-3-JPA注解" class="headerlink" title="2.3 JPA注解"></a>2.3 JPA注解</h2><h3 id="1-Entity-amp-Table-name-“”"><a href="#1-Entity-amp-Table-name-“”" class="headerlink" title="1. @Entity&amp;@Table(name=“”)"></a>1. <code>@Entity</code>&amp;<code>@Table(name=“”)</code></h3><p>表明这是一个数据实体类。一般用于jpa这两个注解一般一块使用，但是如果表名和实体类名相同的话，@Table可以省略</p>
+<h3 id="2-MappedSupperClass"><a href="#2-MappedSupperClass" class="headerlink" title="2. @MappedSupperClass"></a>2. <code>@MappedSupperClass</code></h3><p>用在确定是父类的entity上。父类的属性子类可以继承。</p>
+<h3 id="3-NoRepositoryBean"><a href="#3-NoRepositoryBean" class="headerlink" title="3. @NoRepositoryBean"></a>3. <code>@NoRepositoryBean</code></h3><p>一般用作父类的repository，有这个注解，spring不会去实例化该repository。</p>
+<h3 id="4-Column"><a href="#4-Column" class="headerlink" title="4. @Column"></a>4. <code>@Column</code></h3><p>如果字段名与列名相同，则可以省略。</p>
+<h3 id="5-Id"><a href="#5-Id" class="headerlink" title="5. @Id"></a>5. <code>@Id</code></h3><p>表示该属性为主键。</p>
+<h3 id="6-GeneratedValue-strategy-GenerationType-SEQUENCE-generator-“repair-seq”"><a href="#6-GeneratedValue-strategy-GenerationType-SEQUENCE-generator-“repair-seq”" class="headerlink" title="6. @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = “repair_seq”)"></a>6. <code>@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = “repair_seq”)</code></h3><p>表示主键生成策略是sequence（可以为Auto、IDENTITY、native等，Auto表示可在多个数据库间切换，IDENTITY表示自增长），指定sequence的名字是repair_seq。</p>
+<h3 id="7-SequenceGeneretor-name-“repair-seq”-sequenceName-“seq-repair”-allocationSize-1"><a href="#7-SequenceGeneretor-name-“repair-seq”-sequenceName-“seq-repair”-allocationSize-1" class="headerlink" title="7. @SequenceGeneretor(name = “repair_seq”, sequenceName = “seq_repair”, allocationSize = 1)"></a>7. <code>@SequenceGeneretor(name = “repair_seq”, sequenceName = “seq_repair”, allocationSize = 1)</code></h3><p>name为sequence的名称，以便使用，sequenceName为数据库的sequence名称，两个名称可以一致。</p>
+<h3 id="8-Transient"><a href="#8-Transient" class="headerlink" title="8. @Transient"></a>8. <code>@Transient</code></h3><p>表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性。如果一个属性并非数据库表的字段映射,就务必将其标示为@Transient,否则,ORM框架默认其注解为@Basic。</p>
+<h3 id="9-Basic-fetch-FetchType-LAZY"><a href="#9-Basic-fetch-FetchType-LAZY" class="headerlink" title="9. @Basic(fetch=FetchType.LAZY)"></a>9. <code>@Basic(fetch=FetchType.LAZY)</code></h3><p>标记可以指定实体属性的加载方式</p>
+<h3 id="10-JsonIgnore"><a href="#10-JsonIgnore" class="headerlink" title="10. @JsonIgnore"></a>10. <code>@JsonIgnore</code></h3><p>作用是json序列化时将Java bean中的一些属性忽略掉,序列化和反序列化都受影响。</p>
+<h3 id="11-JoinColumn（name-”loginId”）"><a href="#11-JoinColumn（name-”loginId”）" class="headerlink" title="11. @JoinColumn（name=”loginId”）"></a>11. <code>@JoinColumn（name=”loginId”）</code></h3><p>一对一：本表中指向另一个表的外键。一对多：另一个表指向本表的外键。</p>
+<h3 id="12-OneToOne-amp-OneToMany-amp-ManyToOne"><a href="#12-OneToOne-amp-OneToMany-amp-ManyToOne" class="headerlink" title="12. @OneToOne&amp;@OneToMany&amp;@ManyToOne"></a>12. <code>@OneToOne</code>&amp;<code>@OneToMany</code>&amp;<code>@ManyToOne</code></h3><p>对应hibernate配置文件中的一对一，一对多，多对一。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>9uts</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2021/08/04/Spring-Boot%E7%AC%94%E8%AE%B0/">http://example.com/2021/08/04/Spring-Boot%E7%AC%94%E8%AE%B0/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span><i>Dubhenn haern am glandeal, morc'h am fhean aiesin.<i></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/SpringBoot/"># SpringBoot</a>
+                    
+                        <a href="/tags/Note/"># Note</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/08/04/SpringMVC%E7%AC%94%E8%AE%B0/">SpringMVC笔记</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 9uts | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
