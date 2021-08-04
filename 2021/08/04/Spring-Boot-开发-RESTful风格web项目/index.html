@@ -13,7 +13,7 @@
 
 
 
-<title>Hello Spring | 9uts&#39; Dog House</title>
+<title>Spring Boot 开发 RESTful风格web项目 | 9uts&#39; Dog House</title>
 
 
 
@@ -193,7 +193,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello Spring</h1>
+            <h1 class="post-title">Spring Boot 开发 RESTful风格web项目</h1>
             
                 <div class="post-meta">
                     
@@ -202,7 +202,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">八月 4, 2021&nbsp;&nbsp;2:36:00</a>
+                        Date: <a href="#">八月 4, 2021&nbsp;&nbsp;10:53:38</a>
                         </span>
                     
                     
@@ -218,7 +218,66 @@
         </header>
 
         <div class="post-content">
-            <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>123</p>
+            <h1 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h1><ol>
+<li>根据RESTful风格制定接口文档</li>
+<li>按文档开发后端API接口</li>
+<li>使用postman测试API接口</li>
+</ol>
+<h1 id="开发过程"><a href="#开发过程" class="headerlink" title="开发过程"></a>开发过程</h1><h2 id="1-约定开发文档"><a href="#1-约定开发文档" class="headerlink" title="1. 约定开发文档"></a>1. 约定开发文档</h2><p>以商品浏览页面为例，需要实现商品的CRUD。</p>
+<blockquote>
+<p>RESTful风格通过HTTP动词GET/POST/PATCH/PUT/DELETE区分操作类型</p>
+</blockquote>
+<p>制定文档如下</p>
+<table>
+<thead>
+<tr>
+<th>动词</th>
+<th>接口含义</th>
+<th>接口地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>查询商品{id}的信息</td>
+<td>localhost:8080/goods/{id}</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>查询所有商品信息</td>
+<td>localhost:8080/goods</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>新增商品</td>
+<td>localhost:8080/goods</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>删除商品{id}</td>
+<td>localhost:8080/goods/{id}</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>修改商品{id}信息</td>
+<td>localhost:8080/goods/{id}</td>
+</tr>
+</tbody></table>
+<h2 id="2-按照文档开发后端API"><a href="#2-按照文档开发后端API" class="headerlink" title="2. 按照文档开发后端API"></a>2. 按照文档开发后端API</h2><p>在SpringBoot中主要通过给控制器增加注解的方式使方法返回序列化JSON，常用的注解有如下几种：</p>
+<ul>
+<li><code>@GetMapping</code></li>
+<li><code>@PostMapping</code></li>
+<li><code>@PutMapping</code></li>
+<li><code>@DeleteMapping</code></li>
+<li><code>@PatchMapping</code></li>
+</ul>
+<p>其名称均与HTTP动词对应，可以使用占位符对操作进行定位，以<code>@GetMapping</code>为例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/goods/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> GoodsDo <span class="title">getGoodsById</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> <span class="keyword">long</span> id)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> goodsService.getById(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>@PathVariable(&quot;id&quot;)</code>表示将占位符<code>&#123;id&#125;</code>的值传给<code>id</code>。</p>
+<p>如果需要将请求中的JSON转换为对应的Java对象，可以通过<code>@RequestBody</code>注解进行表示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PutMapping(&quot;/goods/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateGoods</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> <span class="keyword">long</span> id, <span class="meta">@RequestBody</span> GoodsDo goods)</span> </span>&#123;</span><br><span class="line">  goods.setId(id);</span><br><span class="line">  goodsSerive.edit(goods);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-使用Postman测试后端API"><a href="#3-使用Postman测试后端API" class="headerlink" title="3. 使用Postman测试后端API"></a>3. 使用Postman测试后端API</h2><p>后端开发完API接口后，需要先进行下简单测试以保证接口是正确可用的。</p>
 
         </div>
 
@@ -233,7 +292,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="http://example.com/2021/08/04/hello-spring/">http://example.com/2021/08/04/hello-spring/</a></span>
+                        <span><a href="http://example.com/2021/08/04/Spring-Boot-%E5%BC%80%E5%8F%91-RESTful%E9%A3%8E%E6%A0%BCweb%E9%A1%B9%E7%9B%AE/">http://example.com/2021/08/04/Spring-Boot-%E5%BC%80%E5%8F%91-RESTful%E9%A3%8E%E6%A0%BCweb%E9%A1%B9%E7%9B%AE/</a></span>
                     </p>
                 
                 
@@ -257,7 +316,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Spring/"># Spring</a>
+                        <a href="/tags/SpringBoot/"># SpringBoot</a>
                     
                         
                 </span>
