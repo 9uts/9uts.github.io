@@ -13,7 +13,7 @@
 
 
 
-<title>【FF14铁人计划】介绍{log00} | 9uts&#39; Dog House</title>
+<title>【FF14铁人计划】局域网通信及其后台程序{log01} | 9uts&#39; Dog House</title>
 
 
 
@@ -193,7 +193,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">【FF14铁人计划】介绍{log00}</h1>
+            <h1 class="post-title">【FF14铁人计划】局域网通信及其后台程序{log01}</h1>
             
                 <div class="post-meta">
                     
@@ -202,7 +202,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">八月 19, 2021&nbsp;&nbsp;20:36:44</a>
+                        Date: <a href="#">八月 20, 2021&nbsp;&nbsp;19:19:29</a>
                         </span>
                     
                     
@@ -218,17 +218,50 @@
         </header>
 
         <div class="post-content">
-            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>该项目是和群友日常讲怪话时的一时兴起，也不知道能否开发完成，正好有上手树莓派的计划，便打算拿这个点子练手了（反正如果完不成树莓派就归我自己了）。</p>
-<p>总之项目是为了帮助某位群友成为真正的不多吃一口单奶的机制铁人而进行的伟大计划，实现的手段是通过一个进本就开始震动但是吃了机制以及躺地上震动便会停止的跳蛋（？）。</p>
-<h1 id="实现手段"><a href="#实现手段" class="headerlink" title="实现手段"></a>实现手段</h1><ol>
-<li>跳蛋驱动方式：树莓派</li>
-<li>FF14 cafe/ACT插件开发</li>
-</ol>
-<h1 id="参考资料列表"><a href="#参考资料列表" class="headerlink" title="参考资料列表"></a>参考资料列表</h1><ol>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f31b90cc756f">树莓派GPIO开发</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/EQAditu/AdvancedCombatTracker/wiki/Plugin-Creation-Tips">AdvancedCombatTracker插件小提普斯</a></li>
-</ol>
-<p>……（持续更新）</p>
+            <h1 id="通信方式的选择"><a href="#通信方式的选择" class="headerlink" title="通信方式的选择"></a>通信方式的选择</h1><p>关于此类与电脑通信的配件，很自然的能想到局域网通信和蓝牙通信，为了优化体验，计划将两种方式都进行实现。</p>
+<h1 id="Spring-Boot程序"><a href="#Spring-Boot程序" class="headerlink" title="Spring Boot程序"></a>Spring Boot程序</h1><p>由于我最近在学Spring Boot，而Spring Boot能很便利地部署这种小型服务，因此选择使用Spring Boot框架对其进行开发。</p>
+<h2 id="1-RESTful风格的后台程序"><a href="#1-RESTful风格的后台程序" class="headerlink" title="1. RESTful风格的后台程序"></a>1. RESTful风格的后台程序</h2><p>本程序不需要实现前端的视图，因此RESTful本身容易开发和部署的特点使其成为了开发的首选。</p>
+<p>由于暂时不了解ACT接口能判定角色状态的种类，暂时约定基础功能的接口如下：</p>
+<table>
+<thead>
+<tr>
+<th>动词</th>
+<th>接口含义</th>
+<th>接口地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>吃到机制，开始计时并停止震动，如果重复访问该接口则重制计时时间</td>
+<td>localhost:8080/wrong</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>计时完毕，重新开始震动，<em>注意：该接口只由程序内部访问</em></td>
+<td>localhost:8080/stop</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>死亡，停止震动</td>
+<td>localhost:8080/dead</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>复活，开始震动</td>
+<td>localhost:8080/relive</td>
+</tr>
+</tbody></table>
+<h2 id="2-控制逻辑"><a href="#2-控制逻辑" class="headerlink" title="2. 控制逻辑"></a>2. 控制逻辑</h2><p>控制逻辑如图所示</p>
+<p><img src="/posts/213347b9/SpringBoot%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84.png" alt="SpringBoot程序结构"></p>
+<h2 id="3-运行效果"><a href="#3-运行效果" class="headerlink" title="3. 运行效果"></a>3. 运行效果</h2><p>利用SpringBoot提供的Logger引擎模拟向Raspberry运行对应的命令，由于Java本身封装有运行bash脚本的方法，因此足够验证该框架的性能。</p>
+<p>运行并部署之后，在浏览器访问各端口效果如图所示</p>
+<p><code>/wrong</code></p>
+<p><img src="/posts/213347b9/image-20210820200320861.png" alt="image-20210820200320861"></p>
+<p><code>/dead</code></p>
+<p><img src="/posts/213347b9/image-20210820200727825.png" alt="image-20210820200727825"></p>
+<p><code>/relive</code></p>
+<p><img src="/posts/213347b9/image-20210820200924294.png" alt="image-20210820200924294"></p>
+<p>至此，框架的基本核心功能已经搭建完成，在后续开发中需要考虑用户登陆、Wi-Fi配对方式以及数据持久化等更深一步的需求，将逐步进行完善。</p>
 
         </div>
 
@@ -243,7 +276,7 @@
                 
                     <p class="copyright-item">
                         <span>Permalink:</span>
-                        <span><a href="https://9uts.github.io/posts/320eabd2/">https://9uts.github.io/posts/320eabd2/</a></span>
+                        <span><a href="https://9uts.github.io/posts/213347b9/">https://9uts.github.io/posts/213347b9/</a></span>
                     </p>
                 
                 
@@ -280,10 +313,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/posts/213347b9/">【FF14铁人计划】局域网通信及其后台程序{log01}</a>
             
-            
-            <a class="next" rel="next" href="/posts/75cf7129/">Spring Boot笔记</a>
+            <a class="next" rel="next" href="/posts/320eabd2/">【FF14铁人计划】介绍{log00}</a>
             
         </section>
 
